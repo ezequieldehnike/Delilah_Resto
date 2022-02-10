@@ -14,11 +14,9 @@ app.use(expressJwt({ secret: firma, algorithms: ["HS512"] })
 	})
 );
 
-
 const usuariosRutas = require('./rutas/usuarios.rutas.js');
 const productosRutas = require('./rutas/productos.rutas.js');
 const pedidosRutas = require('./rutas/pedidos.rutas.js');
-
 
 usuariosRutas(app);
 productosRutas(app);

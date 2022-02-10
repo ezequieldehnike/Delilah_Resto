@@ -25,5 +25,4 @@ const firma = "MagiaAcamica2021";
 const m = new Date();
 const ahora = m.getUTCFullYear() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCDate() + " " + m.getUTCHours() + ":" + m.getUTCMinutes() + ":" + m.getUTCSeconds();
 
-
 module.exports = { sequelize, jwt, firma, ahora };

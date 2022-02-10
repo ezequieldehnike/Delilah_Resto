@@ -1,17 +1,17 @@
 /*
- Navicat Premium Data Transfer
+  Navicat Premium Data Transfer
 
- Source Server         : mysql
- Source Server Type    : MySQL
- Source Server Version : 100420
- Source Host           : localhost:3306
- Source Schema         : delilah
+  Source Server         : mysql
+  Source Server Type    : MySQL
+  Source Server Version : 100420
+  Source Host           : localhost:3306
+  Source Schema         : delilah
 
- Target Server Type    : MySQL
- Target Server Version : 100420
- File Encoding         : 65001
+  Target Server Type    : MySQL
+  Target Server Version : 100420
+  File Encoding         : 65001
 
- Date: 05/02/2022 22:03:45
+  Date: 05/02/2022 22:03:45
 */
 
 SET NAMES utf8mb4;
