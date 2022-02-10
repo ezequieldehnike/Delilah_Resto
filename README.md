@@ -10,7 +10,8 @@
 
  Clonar proyecto desde la consola:
 
- ⌨️ git clone https://github.com/ezequieldehnike/Delilah_Resto
+ ⌨️ git clone https://github.com/ezequieldehnike/Delilah_Resto-proyect-3
+
 
  ## 2 - Instalación de dependencias 
 
