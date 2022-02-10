@@ -62,14 +62,12 @@ module.exports = (app) => {
     app.post("/v1/ingreso/", async (req, res) => {
         console.log("Usuario Quiere Ingresar : /v1/ingreso/ ");
         const { usuario, contrasena } = req.body;
-
         if (!usuario || !contrasena) {
             res.status(404).json({
-                error: `Datos Incompletos !`
+                error: `Datos erroneos !`
             });
         } else {
             const usuBus = await usuariosServicios.buscarUsuario(req.body);
-
             if (usuBus.length > 0 && usuario == usuBus[0].usuario && contrasena == usuBus[0].contrasena) {
                 console.log("Enviando Token");
                 const informacion = { usuario: usuario, admin: usuBus[0].admin, id: usuBus[0].id };

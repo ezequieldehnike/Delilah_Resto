@@ -3,9 +3,9 @@ const SeqLibrary = require("sequelize");
 const conn = {
     DATABASE: 'delilah',
     DIALECT: 'mysql',
-    HOST: '127.0.0.0.1',
-    PASSWORD: 'Acamica2021',
-    USERNAME: 'acamicaezequieldehnike' 
+    HOST: '127.0.0.1',
+    PASSWORD: null,
+    USERNAME: 'root' 
 }
 
 const sequelize = new SeqLibrary(conn.DATABASE, conn.USERNAME, conn.PASSWORD, {
