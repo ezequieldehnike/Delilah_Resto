@@ -61,4 +61,3 @@ localhost:3000/v1/
 |	    |               | nombre_producto,precio}]}     |             |                                                |
 |  PUT   | /pedid        |{ estado , id_pedido }         |  {token}    | Permite editar el Estado del Pedido(Solo Admin)|
 | DELETE | /pedidos      |{id ,token}	        	    |  {token}    | Elimina un pedido        (Solo Admin)          |
-|--------|---------------|-------------------------------|-------------|------------------------------------------------|
