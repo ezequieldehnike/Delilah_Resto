@@ -50,7 +50,7 @@
  | DELETE | /usuarios     |{usuario}                      |  {token}    | Elimina un usuario       (Solo Admin)          |
  |--------|---------------|-------------------------------|-------------|------------------------------------------------|
  |   GET  | /productos    |                      	        |             | Devuelve todos los productos                   |
- |   GET  | /productos    | {nombre}               	      |             | Devuelve prod. contenga la palabra buscada     |
+ |   GET  | /productos    | {nombre}               	      |             | Devuelve prod. que contenga la palabra buscada |
  |  POST  | /productos    |{ nombre, precio, imagen,      |  {token}    | Crea un Producto         (Solo Admin)          |
  |		    |	              |	descripcion}                  |             |                                                |
  |  PUT   | /productos    |{ id, nombre, precio, imagen,  |  {token}    | Modifica un Producto      (Solo Admin)         |
