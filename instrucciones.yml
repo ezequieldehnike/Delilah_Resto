@@ -7,9 +7,7 @@ info:
   version: "1.0.0"
 externalDocs:
   description: "Github Repository"
-  url: "https://github.com/ezequieldehnike/Delilah_Resto"
-# servers:
-  # - url: "http://localhost:3000/v1"
+  url: "https://github.com/ezequieldehnike/Delilah_Resto-proyect-3"
 tags:
   - name: "Ingreso"
     description: "Ingreso al Sitio"
@@ -19,8 +17,11 @@ tags:
     description: "Operaciones sobre Productos"
   - name: "Pedidos"
     description: "Operaciones sobre Pedidos"
+schemes:
+- "https"
+- "http"
 paths:
-  /usuarios:
+  /v1/usuarios:
     post:
       tags:
         - "Usuarios"
@@ -36,7 +37,6 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/usuarios"
-      security: []
       responses:
         "200":
           description: "Usuario Creado Correctamente"
@@ -51,10 +51,21 @@ paths:
         - "Usuarios"
       summary: "Muestra el listado de Usuarios"
       description: "Muestra el listado de USuarios, se debe enviar Token"
-      operationId: "traerInformacionUsuario"
+      operationId: "buscarUsuario"
       responses:
         "200":
           description: "Operacion Correcta"
+          schema:
+            type: "object"
+            properties:
+              id: 
+                type: "string"
+              usuario: 
+                type: "string"
+              name:
+                type: "string"
+              apellido: 
+                type: "string"
         "401":
           description: "Token Invalido"
         "404":
@@ -66,13 +77,15 @@ paths:
         - "Usuarios"
       summary: "Edita un usuario"
       operationId: "editarUsuario"
-      requestBody:
-        description: "Fields to change"
-        content:
-          application/json:
-            schema:
-              allOf:
-              $ref: "#/components/schemas/Usuarios"
+      consumes:
+      - "aplication/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Usuario actualizado"
+        required: true
+        schema:
+          $ref: "#/definitions/usuarios"
       responses:
         "201":
           description: "Operacion Correcta"
@@ -84,7 +97,7 @@ paths:
           description : "Error"
     delete:
       tags:
-        - usuarios
+        - "usuarios"
       summary: "Elimina Usuario"
       responses:
         "201":
@@ -96,11 +109,10 @@ paths:
         "500":
           description : "Error"
 
-  /ingreso:
+  /v1/ingreso:
     get:
       tags:
         - "Ingreso"
-      security: []
       summary: "Ingreso al Sistema"
       operationId: "loginUsuario"
       parameters:
@@ -123,7 +135,7 @@ paths:
           description: "Error en Usuario o Contraseña"
         "500":
           description : "Error"
-  /productos:
+  /v1/productos:
     get:
       tags:
         - "Productos"
@@ -149,10 +161,14 @@ paths:
         - "Productos"
       summary: "Agrega Producto"
       description: "Agrega producto al sistema"
-      operationId: "agregarProducto"
-      requestBody:
-        description:
+      operationId: "crearProducto"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Producto creado"
           required: true
+          schema:
+            $ref: "#/definitions/productos"
       responses:
         "200":
           description: "Productos Agregado Correctamente"
@@ -162,6 +178,7 @@ paths:
           description: "Token Invalido"
         "500":
           description : "Error"
+          
     put:
       tags:
         - "Productos"
@@ -171,7 +188,7 @@ paths:
         - name: "id"
           in : "body"
           description: "El Id del producto"
-          required: "true"
+          required: true
           schema:
             type: "string"
       operationId: "editarProducto"
@@ -196,7 +213,7 @@ paths:
       description: "Elimina un prodcto mediante el ID"
       parameters:
         - name: "id"
-          in : body
+          in : "body"
           description: "El Id del producto es necesario para eliminarlo"
           required: true
           schema:
@@ -212,7 +229,7 @@ paths:
         "500":
           description : "Error"
 
-  /pedidos:
+  /v1/pedidos:
     get:
       tags:
         - "Pedidos"
@@ -308,13 +325,7 @@ paths:
           description: "Token Invalido"
         "500":
           description : "Error"
-security:
-  - bearerAuth: []
 definitions:
-  ingreso:
-    type: "object"
-    properties:
-
   usuarios:
     type: "object"
     properties:
@@ -326,17 +337,20 @@ definitions:
         type: "string"
       email:
         type: "string"
-      contraseña: 
+      contrasena: 
         type: "integer"
       telefono:
         type: "integer"
       domicilio:
         type: "integer"
-  
   productos:
     type: "object"
     properties:
-
-  pedidos:
-    type: "object"
-    properties:
+      nombre:
+        type: "string"
+      precio:
+        type: "integer"  
+      imagen:
+        type: "string"  
+      descripcion:
+        type: "string" 
