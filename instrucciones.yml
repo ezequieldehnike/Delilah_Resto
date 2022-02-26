@@ -36,7 +36,22 @@ paths:
         description: "Usuario creado"
         required: true
         schema:
-          $ref: "#/definitions/usuarios"
+          type: "object"
+          properties:
+            usuario: 
+              type: "string"
+            nombre:
+              type: "string"
+            apellido: 
+              type: "string"
+            email:
+              type: "string"
+            contrasena: 
+              type: "integer"
+            telefono:
+              type: "integer"
+            domicilio:
+              type: "integer"
       responses:
         "200":
           description: "Usuario Creado Correctamente"
@@ -46,15 +61,23 @@ paths:
           description: "El Usuario ya existe en la base de Datos"
         "500":
           description : "Error"
+          
     get:
       tags:
         - "Usuarios"
       summary: "Muestra el listado de Usuarios"
       description: "Muestra el listado de USuarios, se debe enviar Token"
       operationId: "buscarUsuario"
+      consumes:
+        - "aplication/json"
+      parameters: 
+      - in: query
+        name: "usuario"
+        type: "string"
+        required: true
       responses:
         "200":
-          description: "Operacion Correcta"
+          description: "Usuario encontrado"
           schema:
             type: "object"
             properties:
@@ -62,7 +85,7 @@ paths:
                 type: "string"
               usuario: 
                 type: "string"
-              name:
+              nombre:
                 type: "string"
               apellido: 
                 type: "string"
@@ -72,36 +95,59 @@ paths:
           description: "Usuario no Encontrado"
         "500":
           description : "Error"
+          
     put:
       tags:
         - "Usuarios"
       summary: "Edita un usuario"
       operationId: "editarUsuario"
       consumes:
-      - "aplication/json"
+        - "aplication/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Usuario actualizado"
+      - in: query
+        name: "usuario"
         required: true
-        schema:
-          $ref: "#/definitions/usuarios"
+        type: "string"
       responses:
         "201":
-          description: "Operacion Correcta"
+          description: "Usuario actualizado"
+          schema:
+            type: "object"
+            properties:
+              usuario: 
+                type: "string"
+              nombre:
+                type: "string"
+              apellido: 
+                type: "string"
+              email:
+                type: "string"
+              contrasena: 
+                type: "integer"
+              telefono:
+                type: "integer"
+              domicilio:
+                type: "integer"
         "401":
           description: "Token Invalido"
         "404":
           description: "Usuario no Encontrado"
         "500":
           description : "Error"
+          
     delete:
       tags:
         - "usuarios"
       summary: "Elimina Usuario"
+      operationId: "eliminarUsuario"
+      parameters: 
+      - in: query
+        name: "usuario"
+        type: "string"
+        required: true
       responses:
         "201":
-            description: "Operacion Correcta"
+          description: "usuario eliminado"
         "401":
           description: "Token Invalido"
         "404":
@@ -110,32 +156,33 @@ paths:
           description : "Error"
 
   /v1/ingreso:
+  
     get:
       tags:
         - "Ingreso"
       summary: "Ingreso al Sistema"
       operationId: "loginUsuario"
       parameters:
-        - name: "usuario"
-          in: "query"
+        - in: query
+          name: "usuario"
           description: "El usuario para acceder"
           required: true
-          schema:
-            type: "string"
-        - name: "contraseña"
-          in: "query"
+          type: "string"
+        - in: query
+          name: "contraseña"
           description: "La contraseña para acceder" 
           required: true
-          schema:
-            type: "string"
+          type: "string"
       responses:
         "200":
-          description: "Operacion Correcta"
+          description: "Login Correcto"
         "400":
           description: "Error en Usuario o Contraseña"
         "500":
           description : "Error"
+##########################################################################################
   /v1/productos:
+  
     get:
       tags:
         - "Productos"
@@ -143,11 +190,10 @@ paths:
       description: "Muestra todos los productos"
       operationId: "traerProductos"
       parameters:
-        - name: "busqueda"
-          in: "query"
+        - in: query 
+          name: "busqueda"
           description: "Busqueda por."
-          schema:
-            type: "string"
+          type: "string"
       responses:
         "200":
           description: "Operacion Correcta"
@@ -168,7 +214,7 @@ paths:
           description: "Producto creado"
           required: true
           schema:
-            $ref: "#/definitions/productos"
+#############################################################          
       responses:
         "200":
           description: "Productos Agregado Correctamente"
@@ -185,18 +231,13 @@ paths:
       summary: "Editar un producto"
       description: "Edita las especificaciones de un producto"
       parameters:
-        - name: "id"
-          in : "body"
+        - in : "body"
+          name: "id"
           description: "El Id del producto"
           required: true
           schema:
             type: "string"
       operationId: "editarProducto"
-      requestBody:
-        description: 
-          content:
-          application/json:
-            required: true
       responses:
         "200":
           description: "Producto modificado Correctamente"
@@ -206,6 +247,7 @@ paths:
           description: "Token Invalido"
         "500":
           description : "Error"
+          
     delete:
       tags:
         - "Productos"
@@ -230,6 +272,7 @@ paths:
           description : "Error"
 
   /v1/pedidos:
+  
     get:
       tags:
         - "Pedidos"
@@ -252,12 +295,6 @@ paths:
       summary: "Crear un Pedido"
       description: "Agrega una nuevo Pedido a la base de datos"
       operationId: "agregarPedido"
-      requestBody:
-        description: "Crear Pedido"
-        content:
-          application/json:
-            schema:
-        required: true
       responses:
         "200":
           description: "Pedido Creado Correctamente"
@@ -267,6 +304,7 @@ paths:
           description: "Token Invalido"
         "500":
           description : "Error"
+          
     put:
       tags:
         - "Pedidos"
@@ -280,17 +318,6 @@ paths:
           required: true
           schema:
             type: "string"
-      requestBody:
-        description: 
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                pedidoEstado:
-                  type: "string"
-                  example: "entregada"
-        required: true
       responses:
         "200":
           description: "Pedido Editado Correctamente"
@@ -300,6 +327,7 @@ paths:
           description: "Token Invalido"
         "500":
           description : "Error"
+          
     delete:
       tags:
         - "Pedidos"
@@ -313,9 +341,6 @@ paths:
           required: true
           schema:
             type: "string"
-      requestBody:
-      descriptios:
-        required: true
       responses:
         "200":
           description: "Pedido Eliminado Correctamente"
@@ -325,32 +350,3 @@ paths:
           description: "Token Invalido"
         "500":
           description : "Error"
-definitions:
-  usuarios:
-    type: "object"
-    properties:
-      usuario: 
-        type: "string"
-      name:
-        type: "string"
-      apellido: 
-        type: "string"
-      email:
-        type: "string"
-      contrasena: 
-        type: "integer"
-      telefono:
-        type: "integer"
-      domicilio:
-        type: "integer"
-  productos:
-    type: "object"
-    properties:
-      nombre:
-        type: "string"
-      precio:
-        type: "integer"  
-      imagen:
-        type: "string"  
-      descripcion:
-        type: "string" 
