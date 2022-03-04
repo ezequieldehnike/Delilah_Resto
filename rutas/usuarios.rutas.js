@@ -59,7 +59,7 @@ module.exports = (app) => {
         else { res.status(400).json({ mensaje: "Error al Eliminar Usuario" }); }
     });
 
-    app.post("/v1/ingreso/", async (req, res) => {
+    app.get("/v1/ingreso/", async (req, res) => {
         console.log("Usuario Quiere Ingresar : /v1/ingreso/ ");
         const { usuario, contrasena } = req.body;
         if (!usuario || !contrasena) {
