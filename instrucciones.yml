@@ -159,7 +159,7 @@ paths:
           
     delete:
       tags:
-        - "usuarios"
+        - "Usuarios"
       summary: "Elimina Usuario"
       operationId: "eliminarUsuario"
       parameters: 
