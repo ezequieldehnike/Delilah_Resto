@@ -392,9 +392,42 @@ paths:
       summary: "Crear un Pedido"
       description: "Agrega una nuevo Pedido a la base de datos"
       operationId: "agregarPedido"
+      consumes:
+      - "aplication/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pedido creado"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            total: 
+              type: "string"
+            id_usuario:
+              type: "string"
+            estado: 
+              type: "string"
+            fecha_pedido:
+              type: "string"
+            fecha_estado:
+              type: "string"
       responses:
         "200":
           description: "Pedido Creado Correctamente"
+          schema:
+            type: "object"
+            properties:
+              id_pedido: 
+                type: "string"
+              id_producto:
+                type: "string"
+              nombre_producto: 
+                type: "string"
+              cantidad: 
+                type: "string"
+              precio: 
+                type: "string"
         "400":
           description: "Error al crear Pedido"
         "401":
@@ -408,6 +441,8 @@ paths:
       summary: "Editar un Pedido"
       description: "Edita un Pedido"
       operationId: "editarPedido"
+      consumes:
+        - "aplication/json"
       parameters:
         - name: "id"
           in : "body"
@@ -415,6 +450,15 @@ paths:
           required: true
           schema:
             type: "string"
+        - in: query
+          name: "estado"
+          type: "string"
+        - in: query
+          name: "id_pedido"
+          type: "string"
+        - in: query
+          name: "fecha_pedido"
+          type: "string"
       responses:
         "200":
           description: "Pedido Editado Correctamente"
@@ -432,12 +476,11 @@ paths:
       description: "Eliminar un Pedido"
       operationId: "eliminarPedido"
       parameters:
-        - name: "id"
-          in : "body"
+        - in: query
+          name: "id_pedido"
           description: "El Id del pedido a Eliminar"
+          type: "string"
           required: true
-          schema:
-            type: "string"
       responses:
         "200":
           description: "Pedido Eliminado Correctamente"
