@@ -104,10 +104,32 @@ paths:
       consumes:
         - "aplication/json"
       parameters:
-      - in: query
-        name: "usuario"
-        required: true
-        type: "string"
+        - in: "body"
+          name: "usuario"
+          required: true
+          schema:
+            type: "string"
+        - in: query
+          name: "usuario"
+          type: "string"
+        - in: query
+          name: "nombre"
+          type: "string"
+        - in: query
+          name: "apellido"
+          type: "string"
+        - in: query
+          name: "email"
+          type: "string"  
+        - in: query
+          name: "contrasena"
+          type: "string"
+        - in: query
+          name: "telefono"
+          type: "string"  
+        - in: query
+          name: "domicilio"
+          type: "string"  
       responses:
         "201":
           description: "Usuario actualizado"
@@ -180,7 +202,7 @@ paths:
           description: "Error en Usuario o Contraseña"
         "500":
           description : "Error"
-##########################################################################################
+          
   /v1/productos:
   
     get:
@@ -188,40 +210,63 @@ paths:
         - "Productos"
       summary: "Trae el Listado de Productos"
       description: "Muestra todos los productos"
-      operationId: "traerProductos"
+      operationId: "buscarProducto"
       parameters:
         - in: query 
           name: "busqueda"
-          description: "Busqueda por."
+          description: "Busqueda por nombre"
           type: "string"
+          required: true 
       responses:
         "200":
-          description: "Operacion Correcta"
+          description: "Producto encontrado"
+          schema:
+            type: "object"
+            properties:
+              nombre: 
+                type: "string"
+              precio: 
+                type: "string"
+              imagen:
+                type: "string"
+              descripcion: 
+                type: "string"
         "404":
           description: "Producto no encontrado"
         "500":
           description : "Error"
-
+          
     post:
       tags:
         - "Productos"
       summary: "Agrega Producto"
       description: "Agrega producto al sistema"
       operationId: "crearProducto"
+      consumes:
+      - "aplication/json"
       parameters:
-        - in: "body"
-          name: "body"
-          description: "Producto creado"
-          required: true
-          schema:
-#############################################################          
+      - in: "body"
+        name: "body"
+        description: "Producto creado"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            nombre: 
+              type: "string"
+            precio:
+              type: "string"
+            imagen: 
+              type: "string"
+            descripcion:
+              type: "string"
       responses:
         "200":
           description: "Productos Agregado Correctamente"
         "400":
           description: "Error al agregar Producto"
-        "401":
-          description: "Token Invalido"
+        "409":
+          description: "Producto ya existe en la base de datos"
         "500":
           description : "Error"
           
@@ -229,7 +274,10 @@ paths:
       tags:
         - "Productos"
       summary: "Editar un producto"
+      operationId: "editarProducto"
       description: "Edita las especificaciones de un producto"
+      consumes:
+        - "aplication/json"
       parameters:
         - in : "body"
           name: "id"
@@ -237,10 +285,32 @@ paths:
           required: true
           schema:
             type: "string"
-      operationId: "editarProducto"
+        - in: query
+          name: "nombre"
+          type: "string"
+        - in: query
+          name: "precio"
+          type: "string"
+        - in: query
+          name: "imagen"
+          type: "string"
+        - in: query
+          name: "descripcion"
+          type: "string"  
       responses:
         "200":
           description: "Producto modificado Correctamente"
+          schema:
+            type: "object"
+            properties:
+              nombre: 
+                type: "string"
+              precio: 
+                type: "string"
+              imagen:
+                type: "string"
+              descripcion: 
+                type: "integer"
         "400":
           description: "Error al editar producto"
         "401":
@@ -253,14 +323,13 @@ paths:
         - "Productos"
       summary: "Elimina un producto"
       description: "Elimina un prodcto mediante el ID"
-      parameters:
-        - name: "id"
-          in : "body"
-          description: "El Id del producto es necesario para eliminarlo"
-          required: true
-          schema:
-            type: "string"
       operationId: "borrarProducto"
+      parameters: 
+      - in: query
+        name: "usuario"
+        description: "El Id del producto es necesario para eliminarlo"
+        type: "string"
+        required: true    
       responses:
         "200":
           description: "Producto eliminado Correctamente"
@@ -279,9 +348,37 @@ paths:
       summary: "Trae listado de Pedidos"
       description: "Trae el listado de todos los Pedidos"
       operationId: "traerPedidos"
+      consumes:
+        - "aplication/json"
+      parameters: 
+      - in: query
+        name: "pedido"
+        type: "string"
+        required: true
+      - in: query
+        name: "id_usuario"
+        type: "string"
+        required: true  
       responses:
         "200":
-          description: "Operacion Correcta"
+          description: "pedido encontrado"
+          schema:
+            type: "object"
+            properties:
+              id: 
+                type: "number"
+              id_usuario: 
+                type: "number"
+              total:
+                type: "number"
+              fecha: 
+                type: "string"
+              estado: 
+                type: "string"
+              fecha_estado: 
+                type: "string"  
+              productos: 
+                type: "string"   
         "400":
           description: "La Operacion no existe"
         "401":
